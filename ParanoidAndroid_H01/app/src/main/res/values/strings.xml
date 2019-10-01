@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Scrolling Text</string>
+    <string name="article_title">Paranoid Android</string>
+    <string name="article_sub_title">KrishnaSai Rwiddhi Shubho</string>
+    <string name="article_text">
+        \n\n
+        <b>Gudavalli Vijaya Krishna Sai</b>
+        \n\n
+        I am from Vijayawada, India. I am an exchange Student of Sapienza University of Rome enrolled as master student in Computer Science(Network and Security) and currently in mobility program USI,Lugano.
+        \n\n
+        Previously, I worked as security research engineer in Netskope India pvt. ltd. at Bangalore. During that period I worked over different SaaS applications and different IDPs.
+        \n\n
+        <b>Rwiddhi Chakraborty.</b>
+        \n\n
+        I’m from India and background is in ECE and I’m a first year masters student in AI. I’m interested particularly in machine learning and deep learning in real world applications. I enjoy reading books and watching movies in my spare time.
+        \n\n
+        <b>Shubho</b>
+        \n\n
+        I am proficient in coding in Python and C++. I have no prior experience in Android development or Java, however I am perceptive and hope to use this course to get a solid start.
+        \n\n
+
+        In the past I have worked on Mobile Robotics algorithms (using ROS - Robot Operating System), Semantic Segmentation (Computer Vision), Game Development (using Unity).
+        \n\n
+
+       
+
+    </string>
+</resources>
