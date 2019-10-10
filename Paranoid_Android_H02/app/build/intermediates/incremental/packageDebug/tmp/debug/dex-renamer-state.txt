@@ -1,0 +1,4 @@
+#Thu Oct 10 14:41:32 CEST 2019
+base.0=/Users/krishnasaigudavalli/Downloads/android-fundamentals-apps-v2-master/HelloToast/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
