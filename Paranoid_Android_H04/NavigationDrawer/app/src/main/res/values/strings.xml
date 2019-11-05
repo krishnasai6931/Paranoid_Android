@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Navigation Drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Paranoid Android</string>
+    <string name="nav_header_subtitle">krishnasai.6931@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_shop_by_cat">Shop by Category</string>
+    <string name="menu_today_deals">Today\'s Deals</string>
+    <string name="menu_your_orders">Your Orders</string>
+    <string name="menu_buy_again">Buy Again</string>
+    <string name="menu_your_account">Your Account</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="menu_Communicate">Communicate</string>
+</resources>
