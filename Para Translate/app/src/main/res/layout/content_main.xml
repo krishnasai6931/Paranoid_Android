@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/translate_main"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".05"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/lang_from"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="8dp"
+
+            android:layout_weight="1" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".45">
+
+        <EditText
+            android:id="@+id/text_from"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:hint="@string/text_from_hint"
+            android:padding="16dp"
+            android:paddingBottom="30dp" />
+
+        <ImageView
+            android:id="@+id/gallery"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_gallery"
+            android:tint="@android:color/darker_gray" />
+
+        <ImageView
+            android:id="@+id/camera"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="8dp"
+
+            android:src="@drawable/ic_camera"
+            android:tint="@android:color/darker_gray" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".05"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/translate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/translate" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".45"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".05"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/lang_to"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1" />
+
+
+    </LinearLayout>
+</LinearLayout>

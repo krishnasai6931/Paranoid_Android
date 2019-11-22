@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Para Translate</string>
+    <string name="text_from_hint">Enter Text to Translate</string>
+    <string name="translate">Translate</string>
+    <string name="greeting">Welcome !!</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string-array name="lang_labels">
+        <item>English</item>
+        <item>Italian</item>
+        <item>German</item>
+        <item>Spanish</item>
+        <item>Hindi</item>
+        <item>Russian</item>
+    </string-array>
+</resources>
