@@ -1,27 +1,41 @@
 package com.example.paratranslate;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
-import android.media.Image;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
+
 import java.io.IOException;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -31,7 +45,12 @@ public class TranslateFragment extends Fragment {
     public static final int CAMERA_REQUEST=9999;
     public static final int GALLERY_REQUEST=8888;
     public EditText editText;
+    public TextView textView;
+    public Button translateButton;
     OCRTess mOCRTess;
+    Dictionary lang_dict = new Hashtable();
+
+    private final String API_KEY = "AIzaSyDguQT_naP6y-mpSnex7whcIH6jiXaxUeg";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,6 +62,9 @@ public class TranslateFragment extends Fragment {
         ImageView camera = (ImageView) rootView.findViewById(R.id.camera);
         ImageView gallery = (ImageView) rootView.findViewById(R.id.gallery);
         editText =(EditText) rootView.findViewById(R.id.text_from);
+        translateButton =(Button) rootView.findViewById(R.id.translate);
+        textView =(TextView) rootView.findViewById(R.id.text_to);
+
 
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +82,63 @@ public class TranslateFragment extends Fragment {
             }
         });
 
+        translateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
 
+            public void onClick(View v) {
+
+                final Handler textViewHandler = new Handler();
+                final String transtext = editText.getText().toString();
+
+                lang_dict.put("English","en");
+                lang_dict.put("Italian","it");
+                lang_dict.put("German","de");
+                lang_dict.put("Hindi","hi");
+                lang_dict.put("Spanish","es");
+                lang_dict.put("Russian","ru");
+                ConnectivityManager connMgr = (ConnectivityManager)
+                        getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = null;
+                if (connMgr != null) {
+                    networkInfo = connMgr.getActiveNetworkInfo();
+                }
+
+                if (networkInfo != null && networkInfo.isConnected())
+                {
+                    new AsyncTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            TranslateOptions options = TranslateOptions.newBuilder()
+                                    .setApiKey(API_KEY)
+                                    .build();
+                            Translate translate = options.getService();
+                            final Translation translation =
+                                    translate.translate(transtext,
+                                            //Translate.TranslateOption.sourceLanguage(lang_dict.get(lang_from).toString()),
+                                            Translate.TranslateOption.targetLanguage(lang_dict.get(lang_to).toString()));
+                            textViewHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    textView.setText(translation.getTranslatedText());
+
+                                }
+                            });
+                            return null;
+                        }
+                    }.execute();
+                }
+                else
+                {
+                    Toast.makeText(getActivity(),"No Internet Connnection",Toast.LENGTH_LONG).show();
+                    //textView.setText("No Internet Connnection");
+                }
+                InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+
+            }
+        });
 
 
         return rootView;
@@ -96,6 +174,9 @@ public class TranslateFragment extends Fragment {
 
         }
     }
+
+
+
 
     private void initspinnerfooter() {
         String[] items = new String[]{"English","Italian","German","Spanish","Hindi","Russian"};
