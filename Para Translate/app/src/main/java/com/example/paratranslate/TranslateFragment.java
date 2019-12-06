@@ -50,7 +50,7 @@ public class TranslateFragment extends Fragment {
     OCRTess mOCRTess;
     Dictionary lang_dict = new Hashtable();
 
-    private final String API_KEY = "AIzaSyDguQT_naP6y-mpSnex7whcIH6jiXaxUeg";
+    private final String API_KEY = "KEY";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
