@@ -131,7 +131,7 @@ public class TranslateFragment extends Fragment {
                 else
                 {
                     Toast.makeText(getActivity(),"No Internet Connnection",Toast.LENGTH_LONG).show();
-                    //textView.setText("No Internet Connnection");
+                    textView.setText("No Internet Connnection");
                 }
                 InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
