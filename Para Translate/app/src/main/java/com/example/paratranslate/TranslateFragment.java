@@ -70,6 +70,7 @@ public class TranslateFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==CAMERA_REQUEST) {
+        if (requestCode==CAMERA_REQUEST && resultCode == RESULT_OK && null != data) {
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             Bitmap converted = bitmap.copy(Bitmap.Config.ARGB_8888, false);
             mOCRTess = new OCRTess(getActivity().getApplicationContext(),lang_from);
