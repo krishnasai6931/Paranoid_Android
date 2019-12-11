@@ -26,7 +26,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
     //private EditText editText;
@@ -53,19 +53,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,mTransFrag).commit();
-        /*Spinner spinner_from = findViewById(R.id.lang_from);
-        Spinner spinner_to = findViewById(R.id.lang_to);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.lang_labels, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource
-                (android.R.layout.simple_spinner_dropdown_item);
-        if (spinner_from != null) {
-            spinner_from.setAdapter(adapter);
-        }
-        if (spinner_to != null) {
-            spinner_to.setAdapter(adapter);
-        }*/
 
 
     }
@@ -82,65 +70,24 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
 
-    }
-    public void openCamera(View view) {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent,CAMERA_REQUEST);
-        String from_lang = mTransFrag.lang_from;
-        Log.v("language","Lang selected "+from_lang );
-    }
-    public void openGallery(View view) {
-        Intent intent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-        startActivityForResult(intent, GALLERY_REQUEST);
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==CAMERA_REQUEST) {
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            Bitmap converted = bitmap.copy(Bitmap.Config.ARGB_8888, false);
-            String from_lang = mTransFrag.lang_from;
-            mOCRTess = new OCRTess(MainActivity.this,from_lang);
-            String OcrData = mOCRTess.getOCRResult(converted);
-            Log.e("mainactivity", OcrData);
-            //editText.setText(OcrData);
-
-        }
-        else if (requestCode==GALLERY_REQUEST && resultCode == RESULT_OK && null != data) {
-            Uri contentURI = data.getData();
-            try {
-
-                ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(), contentURI);
-                Bitmap bitmap = ImageDecoder.decodeBitmap(source);
-                Bitmap converted = bitmap.copy(Bitmap.Config.ARGB_8888, false);
-                String from_lang = mTransFrag.lang_from;
-                mOCRTess = new OCRTess(MainActivity.this,from_lang);
-                String OcrData = mOCRTess.getOCRResult(converted);
-                Log.e("mainactivity", OcrData);
-                //editText.setText("HEllo");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,mTransFrag).commit();
+                break;
+            case R.id.nav_history:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HistoryFragment()).commit();
+                break;
+            case R.id.nav_stats:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new StatsFragment()).commit();
+                break;
+            case R.id.nav_about:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new AboutFragment()).commit();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
