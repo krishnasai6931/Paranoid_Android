@@ -1,30 +1,44 @@
 package com.example.paratranslate;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
 import android.media.Image;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
+
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,6 +53,16 @@ public class TranslateFragment extends Fragment {
     public EditText editText;
     OCRTess mOCRTess;
     String mCurrentPhotoPath;
+
+    private EditText inputToTranslate;
+
+    private TextView translatedTv;
+    private String originalText;
+    private String translatedText;
+    private boolean connected;
+    Translate translate;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,6 +74,9 @@ public class TranslateFragment extends Fragment {
         ImageView camera = (ImageView) rootView.findViewById(R.id.camera);
         ImageView gallery = (ImageView) rootView.findViewById(R.id.gallery);
         editText =(EditText) rootView.findViewById(R.id.text_from);
+        translatedTv = (TextView) rootView.findViewById(R.id.text_to);
+
+        Button translateButton = rootView.findViewById(R.id.translate);
 
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,10 +109,111 @@ public class TranslateFragment extends Fragment {
             }
         });
 
+        translateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkInternetConnection()) {
+
+                    //If there is internet connection, get translate service and start translation:
+                    getTranslateService();
+                    String result = translate(editText.getText().toString(), lang_to);
+                    translatedTv.setText(result);
+
+
+                } else {
+
+                    //If not, display "no connection" warning:
+                    Toast.makeText(getActivity(),"No Internet Connection",Toast.LENGTH_LONG).show();
+                }
+                InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        });
+
 
 
 
         return rootView;
+    }
+
+    public void getTranslateService() {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        try (InputStream is = getResources().openRawResource(R.raw.credentials)) {
+
+            //Get credentials:
+            final GoogleCredentials myCredentials = GoogleCredentials.fromStream(is);
+
+            //Set credentials and get translate service:
+            TranslateOptions translateOptions = TranslateOptions.newBuilder().setCredentials(myCredentials).build();
+            translate = translateOptions.getService();
+
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+
+        }
+    }
+
+    public String translate(String s, String target) {
+
+        switch(target){
+
+            case "Italian":
+                target = "it";
+                break;
+
+
+            case "German":
+                target = "de";
+                break;
+
+
+            case "Hindi":
+                target = "hi";
+                break;
+
+
+            case "Spanish":
+                target = "es";
+                break;
+
+
+            case "Russian":
+                target = "ru";
+                break;
+
+
+            case "English":
+                target = "en";
+                break;
+
+
+
+        }
+
+
+        //Get input text to be translated:
+        //originalText = inputToTranslate.getText().toString();
+        Translation translation = translate.translate(s, Translate.TranslateOption.targetLanguage(target), Translate.TranslateOption.model("base"));
+        translatedText = translation.getTranslatedText();
+
+        //Translated text and original text are set to TextViews:
+        return translatedText;
+
+    }
+    public boolean checkInternetConnection() {
+
+        //Check internet connection:
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        //Means that we are connected to a network (mobile or wi-fi)
+        connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+
+        return connected;
     }
 
     @Override
