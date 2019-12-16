@@ -29,8 +29,10 @@ public class StatsFragment extends Fragment {
     private String Lang = "German";
     private ArrayList<String> arrayList;
 
+    Cursor cursor;
 
-    String statsLang = "German";
+
+    String statsLang = "Italian";
     Spinner statsLang_spinner;
 
     final String[] from = new String[]{dbHelper._ID, dbHelper.WORD, dbHelper.COUNT};
@@ -43,8 +45,9 @@ public class StatsFragment extends Fragment {
         Log.d("STATS", "s");
         dbManager = new DatabaseManager(getActivity());
         dbManager.open();
-        statsLang_spinner = rootView.findViewById(R.id.statsLangSpinner);
-        initspinnerfooter();
+        //statsLang_spinner = rootView.findViewById(R.id.statsLangSpinner);
+        //initspinnerfooter();
+
 
         /*
         String[] items = new String[]{"English","Italian","German","Spanish","Hindi","Russian"};
@@ -56,8 +59,8 @@ public class StatsFragment extends Fragment {
         statsLang_spinner.setAdapter(dataAdapter);*/
 
 
+        cursor = dbManager.fetch_bylang(statsLang);
 
-        Cursor cursor = dbManager.fetch_bylang(statsLang);
 
         listView = (ListView) rootView.findViewById(R.id.myListView);
 
@@ -67,7 +70,6 @@ public class StatsFragment extends Fragment {
         return rootView;
 
     }
-
 
 
 
@@ -82,16 +84,20 @@ public class StatsFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //Log.v("item", (String) parent.getItemAtPosition(position);
                 statsLang = (String) parent.getItemAtPosition(position);
-                Log.v("StatsLanguage 1","Lang selected "+statsLang );
+                Log.d("StatsLanguage 1","Lang selected "+statsLang );
 
+                cursor = dbManager.fetch_bylang(statsLang);
+                Log.d("statsLang 1", statsLang);
+                Log.d("Cursor 1",cursor.toString());
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
-                Log.v("StatsLanguage 2","Lang selected "+statsLang );
-                statsLang = (String) parent.getItemAtPosition(0);
+                statsLang ="English";
 
+                cursor = dbManager.fetch_bylang(statsLang);
+                Log.d("statsLang 2", statsLang);
+                Log.d("Cursor 2",cursor.toString());
             }
         });
     }
