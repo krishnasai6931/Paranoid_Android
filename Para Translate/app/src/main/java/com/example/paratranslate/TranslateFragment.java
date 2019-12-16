@@ -121,15 +121,15 @@ public class TranslateFragment extends Fragment {
 
                     //If there is internet connection, get translate service and start translation:
                     getTranslateService();
-                    String result = translate(editText.getText().toString(), lang_to);
+                    String result = translate(editText.getText().toString().toLowerCase(), lang_to);
                     translatedTv.setText(result);
                     if(lang_to == primary_language){
-                        Log.d("DB ENTRY", lang_from + "  " + editText.getText().toString());
-                        db.insert(editText.getText().toString(), lang_from);
+                        Log.d("DB ENTRY 1", lang_from + "  " + editText.getText().toString());
+                        db.insert(editText.getText().toString().toLowerCase(), lang_from);
                     }
                     else{
-                        Log.d("DB ENTRY", lang_from + "  " + editText.getText().toString());
-                        db.insert(editText.getText().toString(), lang_to);
+                        Log.d("DB ENTRY 2", lang_from + "  " + editText.getText().toString());
+                        db.insert(translatedTv.getText().toString().toLowerCase(), lang_to);
                     }
 
 

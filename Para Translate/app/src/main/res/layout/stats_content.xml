@@ -9,15 +9,16 @@
     tools:context=".StatsFragment"
     tools:showIn="@layout/stats_activity">
 
-    <!--
+
     <Spinner
         android:id="@+id/statsLangSpinner"
         android:layout_width="match_parent"
 
-        android:layout_height="69dp" />-->
+        android:layout_height="69dp" />
 
     <ListView
         android:id="@+id/myListView"
+        android:layout_below="@+id/statsLangSpinner"
         android:layout_width="match_parent"
         android:layout_height="662dp"
         android:layout_alignParentBottom="true"

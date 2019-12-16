@@ -23,7 +23,7 @@ public class StatsFragment extends Fragment {
 
     private DatabaseManager dbManager;
     private ListView listView;
-    private SimpleCursorAdapter adapter;
+
     private DatabaseHelper dbHelper;
 
     private String Lang = "German";
@@ -32,7 +32,7 @@ public class StatsFragment extends Fragment {
     Cursor cursor;
 
 
-    String statsLang = "Italian";
+    String statsLang;
     Spinner statsLang_spinner;
 
     final String[] from = new String[]{dbHelper._ID, dbHelper.WORD, dbHelper.COUNT};
@@ -45,8 +45,9 @@ public class StatsFragment extends Fragment {
         Log.d("STATS", "s");
         dbManager = new DatabaseManager(getActivity());
         dbManager.open();
-        //statsLang_spinner = rootView.findViewById(R.id.statsLangSpinner);
-        //initspinnerfooter();
+        statsLang_spinner = rootView.findViewById(R.id.statsLangSpinner);
+        listView = (ListView) rootView.findViewById(R.id.myListView);
+        initspinnerfooter();
 
 
         /*
@@ -59,13 +60,7 @@ public class StatsFragment extends Fragment {
         statsLang_spinner.setAdapter(dataAdapter);*/
 
 
-        cursor = dbManager.fetch_bylang(statsLang);
 
-
-        listView = (ListView) rootView.findViewById(R.id.myListView);
-
-        adapter = new SimpleCursorAdapter(getContext(), R.layout.adapter, cursor, from, to, 0);
-        listView.setAdapter(adapter);
 
         return rootView;
 
@@ -85,19 +80,19 @@ public class StatsFragment extends Fragment {
                 //Log.v("item", (String) parent.getItemAtPosition(position);
                 statsLang = (String) parent.getItemAtPosition(position);
                 Log.d("StatsLanguage 1","Lang selected "+statsLang );
-
+                SimpleCursorAdapter adapter;
                 cursor = dbManager.fetch_bylang(statsLang);
-                Log.d("statsLang 1", statsLang);
-                Log.d("Cursor 1",cursor.toString());
+                adapter = new SimpleCursorAdapter(getContext(), R.layout.adapter, cursor, from, to, 0);
+                listView.setAdapter(adapter);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 statsLang ="English";
-
+                SimpleCursorAdapter adapter;
                 cursor = dbManager.fetch_bylang(statsLang);
-                Log.d("statsLang 2", statsLang);
-                Log.d("Cursor 2",cursor.toString());
+                adapter = new SimpleCursorAdapter(getContext(), R.layout.adapter, cursor, from, to, 0);
+                listView.setAdapter(adapter);
             }
         });
     }
