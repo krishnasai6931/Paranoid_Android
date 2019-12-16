@@ -85,7 +85,7 @@ public class DatabaseManager {
     }
 
     public Cursor fetch_bylang(String lang){
-        Cursor cursor = database.rawQuery("SELECT * FROM " + dbHelper.TABLE_NAME + " WHERE " + dbHelper.LANG + " = '" + lang + "'" + " ORDER BY " + dbHelper.COUNT, null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + dbHelper.TABLE_NAME + " WHERE " + dbHelper.LANG + " = '" + lang + "'" + " ORDER BY " + dbHelper.COUNT + " DESC", null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
