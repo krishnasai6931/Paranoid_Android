@@ -26,6 +26,11 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.io.IOException;
 
+
+/*
+
+ */
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
@@ -85,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_stats:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new StatsFragment()).commit();
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new test()).commit();
                 break;
             case R.id.nav_about:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new AboutFragment()).commit();

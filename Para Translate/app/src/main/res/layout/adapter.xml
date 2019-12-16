@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+
+    <TextView
+        android:text="id"
+        android:id="@+id/id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/listWord"
+        android:layout_width="117dp"
+        android:layout_height="wrap_content"
+        android:text="Word"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/listCount"
+        android:layout_width="137dp"
+        android:layout_height="wrap_content"
+        android:text="Count" />
+
+</LinearLayout>

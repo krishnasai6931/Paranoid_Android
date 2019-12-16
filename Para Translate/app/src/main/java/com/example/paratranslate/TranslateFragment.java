@@ -62,6 +62,8 @@ public class TranslateFragment extends Fragment {
     private boolean connected;
     Translate translate;
 
+    private DatabaseManager db;
+    private String primary_language = "English";
 
     @Nullable
     @Override
@@ -77,6 +79,9 @@ public class TranslateFragment extends Fragment {
         translatedTv = (TextView) rootView.findViewById(R.id.text_to);
 
         Button translateButton = rootView.findViewById(R.id.translate);
+
+        db = new DatabaseManager(getContext());
+        db.open();
 
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +123,14 @@ public class TranslateFragment extends Fragment {
                     getTranslateService();
                     String result = translate(editText.getText().toString(), lang_to);
                     translatedTv.setText(result);
+                    if(lang_to == primary_language){
+                        Log.d("DB ENTRY", lang_from + "  " + editText.getText().toString());
+                        db.insert(editText.getText().toString(), lang_from);
+                    }
+                    else{
+                        Log.d("DB ENTRY", lang_from + "  " + editText.getText().toString());
+                        db.insert(editText.getText().toString(), lang_to);
+                    }
 
 
                 } else {
