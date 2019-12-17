@@ -39,4 +39,5 @@ dependencies {
         exclude group: 'org.apache.httpcomponents'
     }
     annotationProcessor 'com.google.cloud:google-cloud-translate:1.12.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 }
