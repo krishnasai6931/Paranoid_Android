@@ -2,6 +2,7 @@ package com.example.paratranslate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
 import android.media.Image;
@@ -44,6 +45,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 public class TranslateFragment extends Fragment {
     Spinner spinner_from,spinner_to;
@@ -63,6 +65,10 @@ public class TranslateFragment extends Fragment {
     Translate translate;
 
     private DatabaseManager db;
+    private SharedPreferences mPreferences;
+    private String sharedPrefFile =
+            "com.example.android.paratranslate";
+    String normtext,transtext;
 
     @Nullable
     @Override
@@ -121,6 +127,10 @@ public class TranslateFragment extends Fragment {
                     getTranslateService();
                     String result = translate(editText.getText().toString().toLowerCase(), lang_to);
                     translatedTv.setText(result);
+                    SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+                    preferencesEditor.putString("normtext", editText.getText().toString());
+                    preferencesEditor.putString("transtext", result);
+                    preferencesEditor.apply();
                     Log.d("DB ENTRY 1", lang_from + "  " + editText.getText().toString().toLowerCase());
                     db.insert(editText.getText().toString().toLowerCase(), lang_from);
                     Log.d("DB ENTRY 2", lang_to + "  " + translatedTv.getText().toString().toLowerCase());
@@ -136,7 +146,12 @@ public class TranslateFragment extends Fragment {
             }
         });
 
-
+        mPreferences = getActivity().getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+        normtext = mPreferences.getString("normtext", "null");
+        if (normtext!="null"){
+            editText.setText(normtext);}
+        transtext = mPreferences.getString("transtext", "");
+        translatedTv.setText(transtext);
 
 
         return rootView;
@@ -238,6 +253,9 @@ public class TranslateFragment extends Fragment {
                 String OcrData = mOCRTess.getOCRResult(converted);
                 Log.e("Fragactivity", OcrData);
                 editText.setText(OcrData);
+                SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+                preferencesEditor.putString("normtext", editText.getText().toString());
+                preferencesEditor.apply();
             }
             catch (IOException e) {
                 e.printStackTrace();
@@ -255,6 +273,9 @@ public class TranslateFragment extends Fragment {
                 String OcrData = mOCRTess.getOCRResult(converted);
                 Log.e("Fragactivity", OcrData);
                 editText.setText(OcrData);
+                SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+                preferencesEditor.putString("normtext", editText.getText().toString());
+                preferencesEditor.apply();
 
             } catch (IOException e) {
                 e.printStackTrace();
