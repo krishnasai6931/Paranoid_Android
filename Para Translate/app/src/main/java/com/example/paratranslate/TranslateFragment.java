@@ -63,7 +63,6 @@ public class TranslateFragment extends Fragment {
     Translate translate;
 
     private DatabaseManager db;
-    private String primary_language = "English";
 
     @Nullable
     @Override
@@ -118,20 +117,14 @@ public class TranslateFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (checkInternetConnection()) {
-
                     //If there is internet connection, get translate service and start translation:
                     getTranslateService();
                     String result = translate(editText.getText().toString().toLowerCase(), lang_to);
                     translatedTv.setText(result);
-                    if(lang_to == primary_language){
-                        Log.d("DB ENTRY 1", lang_from + "  " + editText.getText().toString());
-                        db.insert(editText.getText().toString().toLowerCase(), lang_from);
-                    }
-                    else{
-                        Log.d("DB ENTRY 2", lang_from + "  " + editText.getText().toString());
-                        db.insert(translatedTv.getText().toString().toLowerCase(), lang_to);
-                    }
-
+                    Log.d("DB ENTRY 1", lang_from + "  " + editText.getText().toString().toLowerCase());
+                    db.insert(editText.getText().toString().toLowerCase(), lang_from);
+                    Log.d("DB ENTRY 2", lang_to + "  " + translatedTv.getText().toString().toLowerCase());
+                    db.insert(translatedTv.getText().toString().toLowerCase(), lang_to);
 
                 } else {
 

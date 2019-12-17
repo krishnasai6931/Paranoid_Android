@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
 import android.net.Uri;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static final int CAMERA_REQUEST=9999;
     public static final int GALLERY_REQUEST=8888;
 
+    public String mstring;
+
     OCRTess mOCRTess;
     public TranslateFragment mTransFrag = new TranslateFragment();
     @Override
@@ -58,6 +61,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,mTransFrag).commit();
+
+
+        Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isFirstRun", true);
+
+        if (isFirstRun) {
+            //show start activity
+
+            startActivity(new Intent(MainActivity.this, Welcome.class));
+
+        }
+        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+                .putBoolean("isFirstRun", false).commit();
 
 
 

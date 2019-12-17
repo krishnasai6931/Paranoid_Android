@@ -1,11 +1,13 @@
 package com.example.paratranslate;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +39,6 @@ public class StatsFragment extends Fragment {
 
     private DatabaseHelper dbHelper;
 
-    private String Lang = "German";
     private ArrayList<String> arrayList;
 
     Cursor cursor;
@@ -46,7 +47,7 @@ public class StatsFragment extends Fragment {
     private boolean connected;
     Translate translate;
 
-    private String privaryLang = "English";
+    public String primaryLang;
 
 
     String statsLang;
@@ -66,6 +67,8 @@ public class StatsFragment extends Fragment {
         listView = (ListView) rootView.findViewById(R.id.myListView);
         initspinnerfooter();
 
+        Context context = getActivity().getApplicationContext();
+
 
         /*
         String[] items = new String[]{"English","Italian","German","Spanish","Hindi","Russian"};
@@ -79,12 +82,17 @@ public class StatsFragment extends Fragment {
 
 
 
+
+
+
+
+        primaryLang = getActivity().getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE).getString("Native", "English");
+        Log.d("Native_Frag", "Native:" + primaryLang);
+
+
         return rootView;
 
     }
-
-
-
 
     private void initspinnerfooter() {
         String[] items = new String[]{"English","Italian","German","Spanish","Hindi","Russian"};
@@ -131,7 +139,7 @@ public class StatsFragment extends Fragment {
 
                         //If there is internet connection, get translate service and start translation:
                         getTranslateService();
-                        result = translate(Val.toLowerCase(),privaryLang);
+                        result = translate(Val.toLowerCase(),primaryLang);
 
                     } else {
 
