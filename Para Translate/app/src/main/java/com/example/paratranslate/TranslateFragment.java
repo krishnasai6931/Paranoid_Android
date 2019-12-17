@@ -88,6 +88,7 @@ public class TranslateFragment extends Fragment {
         db = new DatabaseManager(getContext());
         db.open();
 
+        //when camera button clicked
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +111,7 @@ public class TranslateFragment extends Fragment {
                 }
             }
         });
+        //when gallery button clicked
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -242,13 +244,15 @@ public class TranslateFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode==CAMERA_REQUEST ) {
-            String myurl = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)+"/myimage1.jpg";
+            //String myurl = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)+"/myimage1.jpg";
             Log.e("Transfrag",mCurrentPhotoPath);
             Uri contentURI =Uri.fromFile(new File(mCurrentPhotoPath));
             try {
                 ImageDecoder.Source source = ImageDecoder.createSource(getActivity().getApplicationContext().getContentResolver(), contentURI);
                 Bitmap bitmap = ImageDecoder.decodeBitmap(source);
+                // Translate api supports only  bitmap of type ARGB_8888
                 Bitmap converted = bitmap.copy(Bitmap.Config.ARGB_8888, false);
+                //Translate api
                 mOCRTess = new OCRTess(getActivity().getApplicationContext(), lang_from);
                 String OcrData = mOCRTess.getOCRResult(converted);
                 Log.e("Fragactivity", OcrData);
@@ -268,7 +272,9 @@ public class TranslateFragment extends Fragment {
 
                 ImageDecoder.Source source = ImageDecoder.createSource(getActivity().getApplicationContext().getContentResolver(), contentURI);
                 Bitmap bitmap = ImageDecoder.decodeBitmap(source);
+                // Translate api supports only  bitmap of type ARGB_8888
                 Bitmap converted = bitmap.copy(Bitmap.Config.ARGB_8888, false);
+                //Translate api
                 mOCRTess = new OCRTess(getActivity().getApplicationContext(),lang_from);
                 String OcrData = mOCRTess.getOCRResult(converted);
                 Log.e("Fragactivity", OcrData);
@@ -283,6 +289,8 @@ public class TranslateFragment extends Fragment {
 
         }
     }
+
+    //Create a local images when image captured with camera.
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());

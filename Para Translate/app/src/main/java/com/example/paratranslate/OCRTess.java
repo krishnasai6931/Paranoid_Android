@@ -90,6 +90,8 @@ public class OCRTess {
             Log.d("mylog", "couldn't copy with the following error : "+e.toString());
         }
     }*/
+
+    // Copies trained language embeddings files from assets library to local.
     private void copyFile(Context context, String language) {
         AssetManager assetManager = context.getAssets();
         try {
