@@ -96,7 +96,7 @@ public class PlotsFragment extends Fragment {
 
         dbManager = new DatabaseManager(getActivity());
         dbManager.open();
-        cursor = dbManager.fetch_bylang(plotLang);
+        cursor = dbManager.fetch_bylang_limit(plotLang);
         Log.d("COUNT PLOT", ""+cursor.getCount());
 
         words.clear();

@@ -91,6 +91,13 @@ public class DatabaseManager {
         }
         return cursor;
     }
+    public Cursor fetch_bylang_limit(String lang){
+        Cursor cursor = database.rawQuery("SELECT * FROM " + dbHelper.TABLE_NAME + " WHERE " + dbHelper.LANG + " = '" + lang + "'" + " ORDER BY " + dbHelper.COUNT + " DESC LIMIT 10 DESC", null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
 
 
 }
