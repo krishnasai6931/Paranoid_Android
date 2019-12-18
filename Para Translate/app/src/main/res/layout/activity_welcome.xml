@@ -58,7 +58,7 @@
             android:layout_marginEnd="160dp"
             android:layout_marginBottom="186dp"
             android:background="@color/replyBlue"
-            android:textColor="@color/cardview_light_background"
+            android:textColor="@color/colorPrimary"
             android:onClick="goToTranslate"
             android:text="@string/go" />
 
