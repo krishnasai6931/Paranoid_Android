@@ -82,12 +82,10 @@ public class StatsFragment extends Fragment {
 
 
 
-
-
-
+        //Get native language of user from Shared preferences
 
         primaryLang = getActivity().getApplicationContext().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE).getString("Native", "English");
-        Log.d("Native_Frag", "Native:" + primaryLang);
+        //Log.d("Native_Frag", "Native:" + primaryLang);
 
 
         return rootView;
@@ -115,7 +113,7 @@ public class StatsFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                statsLang ="English";
+                statsLang ="English"; //Default Language
                 SimpleCursorAdapter adapter;
                 cursor = dbManager.fetch_bylang(statsLang);
                 adapter = new SimpleCursorAdapter(getContext(), R.layout.adapter, cursor, from, to, 0);
@@ -125,6 +123,9 @@ public class StatsFragment extends Fragment {
         });
     }
     void clickTrans(){
+
+        //Used in "Your statistics", translate clicked word to native language
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -150,7 +151,7 @@ public class StatsFragment extends Fragment {
                     }
                 }
                 else{
-                    Val ="noooooo!!!!!!!!!!!!";
+                    Val ="noooooo!!!!!!!!!!!!"; //Lame cursor Warning
                     result=Val;
                 }
                 Log.d("CURSOR VAL",Val);
@@ -162,6 +163,9 @@ public class StatsFragment extends Fragment {
             }
         });
     }
+
+    //Code for translation as is also used in TranslateFragment
+
     public void getTranslateService() {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

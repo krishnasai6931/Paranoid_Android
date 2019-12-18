@@ -56,8 +56,6 @@ public class TranslateFragment extends Fragment {
     OCRTess mOCRTess;
     String mCurrentPhotoPath;
 
-    private EditText inputToTranslate;
-
     private TextView translatedTv;
     private String originalText;
     private String translatedText;
@@ -121,14 +119,19 @@ public class TranslateFragment extends Fragment {
             }
         });
 
+        //when Translate Button Clicked
         translateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkInternetConnection()) {
                     //If there is internet connection, get translate service and start translation:
                     getTranslateService();
+                    //Pass target language and source language to translate function
                     String result = translate(editText.getText().toString().toLowerCase(), lang_to);
+                    //Set returned result to ImageView
                     translatedTv.setText(result);
+
+                    //Save data in DB
                     SharedPreferences.Editor preferencesEditor = mPreferences.edit();
                     preferencesEditor.putString("normtext", editText.getText().toString());
                     preferencesEditor.putString("transtext", result);
@@ -159,6 +162,7 @@ public class TranslateFragment extends Fragment {
         return rootView;
     }
 
+    //Function to authenticate credentials for GC Translate
     public void getTranslateService() {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -180,6 +184,7 @@ public class TranslateFragment extends Fragment {
         }
     }
 
+    //Call translate service using source and target language
     public String translate(String s, String target) {
 
         switch(target){
@@ -290,7 +295,7 @@ public class TranslateFragment extends Fragment {
         }
     }
 
-    //Create a local images when image captured with camera.
+    //Create a local image when image captured with camera.
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -310,6 +315,9 @@ public class TranslateFragment extends Fragment {
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
+
+    //Source and Target language spinners
+
     private void initspinnerfooter() {
         String[] items = new String[]{"English","Italian","German","Spanish","Hindi","Russian"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);

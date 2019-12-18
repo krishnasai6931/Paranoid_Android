@@ -26,6 +26,7 @@ public class Welcome extends AppCompatActivity {
 
 
 
+    //Activity opens on install and first use
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,8 @@ public class Welcome extends AppCompatActivity {
 
     }
 
+
+    //Spinner to select native language from list of languages
 
     private void initspinner() {
         String[] items = new String[]{"English", "Italian", "German", "Spanish", "Hindi", "Russian"};
@@ -69,9 +72,12 @@ public class Welcome extends AppCompatActivity {
         });
     }
 
+    //On Button Click, Add selected language to shared preferences
+    //Start Main Activity
+
     public void goToTranslate(View view) {
 
-        Log.d("Welcome_PRIMARY_Button", "N" + native_lang);
+        //Log.d("Welcome_PRIMARY_Button", "N" + native_lang);
 
         getSharedPreferences("LANGUAGE", MODE_PRIVATE).edit().putString("Native", native_lang).commit();
 

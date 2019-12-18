@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+//About page
+
 public class AboutFragment extends Fragment {
     @Nullable
     @Override

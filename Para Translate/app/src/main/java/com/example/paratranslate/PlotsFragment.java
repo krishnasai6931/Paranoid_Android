@@ -1,5 +1,6 @@
 package com.example.paratranslate;
 
+//Class to generate data visualisations
 
 import android.database.Cursor;
 import android.graphics.Color;
@@ -57,7 +58,10 @@ public class PlotsFragment extends Fragment {
 
         return rootView;
     }
-    public static int sum(List<Integer> list) {
+
+    //Get total count of each word
+
+    public static int get_sum(List<Integer> list) {
         int sum = 0;
         for (int i: list) {
             sum += i;
@@ -65,6 +69,7 @@ public class PlotsFragment extends Fragment {
         return sum;
     }
 
+    //View saved words in chosen language
     private void initspinnerfooter() {
         String[] items = new String[]{"English","Italian","German","Spanish","Hindi","Russian"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
@@ -109,7 +114,7 @@ public class PlotsFragment extends Fragment {
             counts.add(cursor.getInt(cursor.getColumnIndex(dbHelper.COUNT)));
 
         }
-        int counts_sum = sum(counts);
+        int counts_sum = get_sum(counts);
         Log.d("WORDS PLOT", ""+words);
         Log.d("WORDS PLOT", ""+counts);
 

@@ -9,6 +9,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+//Detecting App Close
 
 public class StickyService extends Service {
     private String sharedPrefFile =

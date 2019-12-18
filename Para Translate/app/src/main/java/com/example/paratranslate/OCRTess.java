@@ -14,6 +14,8 @@ import java.io.OutputStream;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
+//Implement OCR functionality
+
 public class OCRTess {
     private String datapath;
     private TessBaseAPI mTess;
@@ -21,6 +23,9 @@ public class OCRTess {
     Dictionary lang_dict = new Hashtable();
     public OCRTess(Context context,String language) {
         this.context = context;
+
+        //Create dictionary of languages to check
+
         lang_dict.put("English","eng");
         lang_dict.put("Italian","ita");
         lang_dict.put("German","deu");
@@ -36,6 +41,9 @@ public class OCRTess {
             dir.mkdirs();
             copyFile(context,language);
         }
+
+        //OCR Begin
+
         mTess = new TessBaseAPI();
         String lang = lang_dict.get(language).toString();
         mTess.init(datapath, lang);

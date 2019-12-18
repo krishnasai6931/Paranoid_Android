@@ -1,5 +1,6 @@
 package com.example.paratranslate;
 
+//Class to fetch items from DB
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -29,7 +30,10 @@ public class DatabaseManager {
         dbHelper.close();
     }
 
+    //Insert information
+
     public void insert(String sentence, String language) {
+        sentence = sentence.replace("\n"," ");
         String[] words = sentence.split("\\s+");
         for (int i = 0; i < words.length; i++) {
             // You may want to check for a non-word character before blindly
@@ -63,6 +67,7 @@ public class DatabaseManager {
         }
     }
 
+    //Update information for the words
     public void update(int id, String word, String lang, int count) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(dbHelper.WORD, word);
@@ -75,6 +80,7 @@ public class DatabaseManager {
         database.delete(dbHelper.TABLE_NAME,dbHelper._ID + " ='" + id + "'",null);
     }
 
+    //Get current word information
     public Cursor fetch() {
         String[] columns = new String[]{dbHelper._ID, dbHelper.WORD, dbHelper.LANG, dbHelper.COUNT};
         Cursor cursor = database.query(dbHelper.TABLE_NAME, columns, null, null, null, null, null);
@@ -84,6 +90,7 @@ public class DatabaseManager {
         return cursor;
     }
 
+    //Return all words in specific language
     public Cursor fetch_bylang(String lang){
         Cursor cursor = database.rawQuery("SELECT * FROM " + dbHelper.TABLE_NAME + " WHERE " + dbHelper.LANG + " = '" + lang + "'" + " ORDER BY " + dbHelper.COUNT + " DESC", null);
         if (cursor != null) {
@@ -91,6 +98,9 @@ public class DatabaseManager {
         }
         return cursor;
     }
+
+    //Return top 10 words
+
     public Cursor fetch_bylang_limit(String lang){
         Cursor cursor = database.rawQuery("SELECT * FROM " + dbHelper.TABLE_NAME + " WHERE " + dbHelper.LANG + " = '" + lang + "'" + " ORDER BY " + dbHelper.COUNT + " DESC LIMIT 10", null);
         if (cursor != null) {

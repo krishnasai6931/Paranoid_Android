@@ -1,5 +1,8 @@
 package com.example.paratranslate;
 
+//Creating SQLite DB
+//Holds unique words, unique languages, and counts of each word
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
