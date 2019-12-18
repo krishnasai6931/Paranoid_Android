@@ -75,7 +75,10 @@
             android:id="@+id/translate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/translate" />
+            android:text="@string/translate"
+            android:background="@color/replyBlue"
+            android:textColor="@color/cardview_light_background"
+            />
 
     </LinearLayout>
 
