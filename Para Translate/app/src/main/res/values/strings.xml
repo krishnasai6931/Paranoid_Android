@@ -5,7 +5,7 @@
     <string name="greeting">Welcome !!</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="about">About</string>
+    <string name="about">Para Translate is built on Tesseract, Google Cloud Translate, and SQLite to provide a useful translation and learning app between multiple languages.</string>
     <string-array name="lang_labels">
         <item>English</item>
         <item>Italian</item>
