@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
                 .putBoolean("isFirstRun", false).commit();
 
-
+        Intent stickyService = new Intent(this, StickyService.class);
+        startService(stickyService);
 
     }
 
