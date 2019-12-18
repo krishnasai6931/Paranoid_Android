@@ -96,6 +96,7 @@ public class StatsFragment extends Fragment {
 
     private void initspinnerfooter() {
         String[] items = new String[]{"English","Italian","German","Spanish","Hindi","Russian"};
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statsLang_spinner.setAdapter(adapter);

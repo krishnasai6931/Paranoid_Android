@@ -11,9 +11,17 @@
         android:layout_width="match_parent"
 
         android:layout_height="69dp" />
+    <TextView
+        android:id="@+id/hintText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/plotLangSpinner"
+        android:gravity="center_horizontal"
+        android:text="Top 10 words."/>
+
 
     <com.github.mikephil.charting.charts.PieChart
-        android:layout_below="@+id/plotLangSpinner"
+        android:layout_below="@+id/hintText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/piechart">

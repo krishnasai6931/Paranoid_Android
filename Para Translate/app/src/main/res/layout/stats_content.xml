@@ -15,10 +15,17 @@
         android:layout_width="match_parent"
 
         android:layout_height="69dp" />
+    <TextView
+        android:id="@+id/hintText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/statsLangSpinner"
+        android:gravity="center_horizontal"
+        android:text="Click on any word to know its meaning."/>
 
     <ListView
         android:id="@+id/myListView"
-        android:layout_below="@+id/statsLangSpinner"
+        android:layout_below="@+id/hintText"
         android:layout_width="match_parent"
         android:layout_height="662dp"
         android:layout_alignParentBottom="true"
